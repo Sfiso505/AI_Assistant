@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AI Assistant</title>
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="type.css" />
+  <!-- JavaScript -->
+  <script src="chatbot.js" defer></script>
+</head>
+
+<body class="light">
+  
+  <!-- Dark/Light Toggle Button -->
+  <button id="themeToggle" class="theme-toggle">🌙</button>
+
+  <!-- Chat Title -->
+  <div class="chat-header">
+    <span class="chat-title" id="rotatingTitle">Hi there! EmBot here.</span>
+  </div>
+
+  <!-- Chat Container -->
+  <div class="chat-container" id="chatbotReply">
+    <!-- Initial Bot Message -->
+    <div class="message-wrapper">
+      <img src="icons/assistant.svg" class="avatar" alt="Bot Avatar">
+      <div class="message bot-message">
+        Hello! How can I help you today?
+        <span class="message-time">Just now</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Chat Input Bar -->
+  <div class="chat-input-container">
+    <div class="chat-input">
+      <input
+        type="text"
+        class="chat-textbox"
+        id="userMessage"
+        placeholder="Enter a prompt here..."
+      />
+      <input type="file" id="fileInput" style="display: none" />
+      <div class="chat-icons">
+        <img src="icons/record.webp" alt="Record" class="chat-icon" />
+        <img src="icons/emoji.png" alt="Emoji" class="chat-icon" />
+        <img
+          src="icons/attach.png"
+          alt="Attach"
+          class="chat-icon"
+          id="attachIcon"
+        />
+        <img
+          src="icons/send.svg"
+          alt="Send"
+          class="chat-icon send-icon"
+          onclick="sendMessage()"
+        />
+      </div>
+    </div>
+  </div>
+
+  <!-- Emoji Picker (positioned absolutely above input) -->
+  <emoji-picker
+    id="emojiPicker"
+    style="
+      position: absolute;
+      bottom: 130px;
+      right: 23%;
+      display: none;
+      z-index: 1000;"
+  ></emoji-picker>
+
+  <!-- Emoji Picker Script -->
+  <script
+    type="module"
+    src="https://cdn.jsdelivr.net/npm/emoji-picker-element@^1/index.js"
+  ></script>
+</body>
+</html>
