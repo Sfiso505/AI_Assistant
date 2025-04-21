@@ -1,3 +1,7 @@
+// Detect environment
+const isLocal = location.hostname === "127.0.0.1" || location.hostname === "localhost";
+const BACKEND_URL = isLocal ? "http://127.0.0.1:5000" : "";
+
 // ENTER to send
 document.getElementById("userMessage").addEventListener("keydown", function (e) {
     if (e.key === "Enter" && !e.shiftKey) {
@@ -10,7 +14,6 @@ document.getElementById("userMessage").addEventListener("keydown", function (e) 
 document.getElementById("attachIcon").addEventListener("click", () => {
     document.getElementById("fileInput").click();
 });
-
 document.getElementById("fileInput").addEventListener("change", uploadFile);
 
 // Append message to chat
@@ -21,7 +24,7 @@ function appendMessage(sender, text) {
     wrapper.className = `message-wrapper${sender === "user" ? " user" : ""}`;
 
     const avatar = document.createElement("img");
-    avatar.src = sender === "user" ? "icons/user2.webp" : "icons/assistant.svg";
+    avatar.src = sender === "user" ? "/static/icons/user2.webp" : "/static/icons/assistant.svg";
     avatar.className = "avatar";
 
     const msgDiv = document.createElement("div");
@@ -42,7 +45,7 @@ function showTypingIndicator() {
     typingDiv.id = "typingIndicator";
 
     const avatar = document.createElement("img");
-    avatar.src = "icons/assistant.svg";
+    avatar.src = "/static/icons/assistant.svg";
     avatar.className = "avatar";
 
     const dots = document.createElement("div");
@@ -71,14 +74,11 @@ async function sendMessage() {
     showTypingIndicator();
 
     try {
-        const res = await fetch("http://127.0.0.1:5000/ask", {
+        const res = await fetch(`${BACKEND_URL}/ask`, {
             method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
+            headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ message: userText })
         });
-
         const data = await res.json();
         removeLastBotMessage();
         appendMessage("bot", data.response);
@@ -101,11 +101,10 @@ async function uploadFile(event) {
     showTypingIndicator();
 
     try {
-        const res = await fetch("http://127.0.0.1:5000/upload", {
+        const res = await fetch(`${BACKEND_URL}/upload`, {
             method: "POST",
             body: formData
         });
-
         const data = await res.json();
         removeLastBotMessage();
         appendMessage("bot", data.response);
@@ -116,7 +115,7 @@ async function uploadFile(event) {
     }
 }
 
-// 🎙 Show Listening Indicator
+// 🎙 Listening indicator
 function showListeningIndicator() {
     const chatContainer = document.getElementById("chatbotReply");
 
@@ -125,7 +124,7 @@ function showListeningIndicator() {
     wrapper.id = "listeningIndicator";
 
     const avatar = document.createElement("img");
-    avatar.src = "icons/user2.webp";
+    avatar.src = "/static/icons/user2.webp";
     avatar.className = "avatar";
 
     const msgDiv = document.createElement("div");
@@ -180,13 +179,11 @@ const inputField = document.getElementById("userMessage");
 emojiIcon.addEventListener("click", () => {
     emojiPicker.style.display = emojiPicker.style.display === "none" ? "block" : "none";
 });
-
 emojiPicker.addEventListener("emoji-click", event => {
     const emoji = event.detail.unicode;
     insertAtCursor(inputField, emoji);
     emojiPicker.style.display = "none";
 });
-
 document.addEventListener("click", (event) => {
     if (!emojiPicker.contains(event.target) && event.target !== emojiIcon) {
         emojiPicker.style.display = "none";
@@ -231,7 +228,7 @@ function markdownToHtml(markdown) {
     return markdown;
 }
 
-// Copy button
+// Copy code button
 document.addEventListener("click", function (e) {
     if (e.target.classList.contains("copy-btn")) {
         const code = e.target.previousElementSibling.textContent;
@@ -242,12 +239,13 @@ document.addEventListener("click", function (e) {
     }
 });
 
+// Title animation
 const titles = [
     "Hi there! EmBot here.",
     "Need help with a file?",
     "Ask me anything!",
     "Ready when you are 😊",
-    "Let's chat."  
+    "Let's chat."
 ];
 
 let titleIndex = 0;
@@ -255,12 +253,10 @@ const rotatingTitle = document.getElementById("rotatingTitle");
 
 function cycleTitle() {
     rotatingTitle.style.opacity = 0;
-
     setTimeout(() => {
         titleIndex = (titleIndex + 1) % titles.length;
         rotatingTitle.textContent = titles[titleIndex];
         rotatingTitle.style.opacity = 1;
     }, 500);
 }
-
-setInterval(cycleTitle, 3500); // Rotate every 3.5 seconds
+setInterval(cycleTitle, 3500);

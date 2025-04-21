@@ -6,13 +6,14 @@
   <title>AI Assistant</title>
 
   <!-- Stylesheet -->
-  <link rel="stylesheet" href="type.css" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='type.css') }}" />
+
   <!-- JavaScript -->
-  <script src="chatbot.js" defer></script>
+  <script src="{{ url_for('static', filename='chatbot.js') }}" defer></script>
 </head>
 
 <body class="light">
-  
+
   <!-- Dark/Light Toggle Button -->
   <button id="themeToggle" class="theme-toggle">🌙</button>
 
@@ -25,7 +26,7 @@
   <div class="chat-container" id="chatbotReply">
     <!-- Initial Bot Message -->
     <div class="message-wrapper">
-      <img src="icons/assistant.svg" class="avatar" alt="Bot Avatar">
+      <img src="{{ url_for('static', filename='icons/assistant.svg') }}" class="avatar" alt="Bot Avatar">
       <div class="message bot-message">
         Hello! How can I help you today?
         <span class="message-time">Just now</span>
@@ -44,16 +45,16 @@
       />
       <input type="file" id="fileInput" style="display: none" />
       <div class="chat-icons">
-        <img src="icons/record.webp" alt="Record" class="chat-icon" />
-        <img src="icons/emoji.png" alt="Emoji" class="chat-icon" />
+        <img src="{{ url_for('static', filename='icons/record.webp') }}" alt="Record" class="chat-icon" />
+        <img src="{{ url_for('static', filename='icons/emoji.png') }}" alt="Emoji" class="chat-icon" />
         <img
-          src="icons/attach.png"
+          src="{{ url_for('static', filename='icons/attach.png') }}"
           alt="Attach"
           class="chat-icon"
           id="attachIcon"
         />
         <img
-          src="icons/send.svg"
+          src="{{ url_for('static', filename='icons/send.svg') }}"
           alt="Send"
           class="chat-icon send-icon"
           onclick="sendMessage()"
