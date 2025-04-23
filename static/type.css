@@ -291,4 +291,63 @@ body {
     background: white;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
   }
+
   
+/* Add this to your existing CSS */
+/* Footer Styles */
+footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  padding: 12px 0;
+  background: #f0f2f5;
+  z-index: 900;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  font-size: 0.8rem;
+  color: #666;
+  transition: all 0.3s ease;
+}
+
+body.dark footer {
+  background: #2b2b2b;
+  color: #aaa;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Adjust existing elements to accommodate footer */
+.chat-container {
+  bottom: 120px; /* Increased from 80px to make space for input + footer */
+  height: calc(60vh - 40px); /* Adjust height to maintain proportions */
+}
+
+.chat-input-container {
+  bottom: 60px; /* Positioned above footer */
+}
+
+/* Adjust emoji picker position */
+#emojiPicker {
+  bottom: 180px !important; /* 120px (chat-container) + 60px (input height) */
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+  .chat-container {
+      bottom: 140px;
+      height: calc(65vh - 60px);
+  }
+  
+  .chat-input-container {
+      bottom: 70px;
+  }
+  
+  #emojiPicker {
+      bottom: 200px !important;
+  }
+  
+  footer {
+      padding: 8px 0;
+      font-size: 0.7rem;
+  }
+}

@@ -12,8 +12,8 @@
   <script src="{{ url_for('static', filename='chatbot.js') }}" defer></script>
 </head>
 
-<body class="light">
 
+<body class="light">
   <!-- Dark/Light Toggle Button -->
   <button id="themeToggle" class="theme-toggle">🌙</button>
 
@@ -74,10 +74,19 @@
       z-index: 1000;"
   ></emoji-picker>
 
-  <!-- Emoji Picker Script -->
-  <script
-    type="module"
-    src="https://cdn.jsdelivr.net/npm/emoji-picker-element@^1/index.js"
-  ></script>
+<!-- Emoji Picker Script -->
+<script
+  type="module"
+  src="https://cdn.jsdelivr.net/npm/emoji-picker-element@^1/index.js"
+></script>
+
+
+</footer>
 </body>
+<!-- ✅ Footer goes inside the body, at the very end -->
+<footer>
+  <div class="footer-bottom">
+    <p>&copy; 2025 Emmanuel Sifiso Nkosi. All Rights Reserved.</p> 
+  </div>
 </html>
+
